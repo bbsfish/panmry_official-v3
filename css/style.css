@@ -1,0 +1,746 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Dancing+Script:700);
+@import url(https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap);
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+/* ===================================
+   変数とMixinの定義
+   =================================== */
+/* ===================================
+   基本スタイル
+   =================================== */
+*,
+*::before,
+*::after {
+  box-sizing: content-box;
+  zoom: 1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: sans-serif;
+  color: #d0d0d0;
+  background-color: #282828;
+  margin: 0;
+  padding-top: 70px;
+}
+
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  list-style-type: none;
+  color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-align: center;
+  color: #fe015c;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d0d0d0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fe015c;
+}
+
+/* hr */
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 120px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+/* ===================================
+   ヘッダー
+   =================================== */
+/* 外側のコンテナ（表示/非表示と位置を管理） */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 100;
+  transition: top 0.4s ease-in-out;
+}
+#header.is-hidden {
+  top: -70px;
+}
+
+/* 内側の要素（背景や影など見た目を管理） */
+.header {
+  background-color: black;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+/* ロゴのスタイルを更新 */
+.header__logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.header__logo span:nth-of-type(1) {
+  color: #d0d0d0;
+}
+.header__logo span:nth-of-type(2) {
+  color: #fe015c;
+}
+
+/* ===================================
+   ナビゲーションメニュー & ハンバーガー
+   =================================== */
+.nav-menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70px);
+  background-color: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+  visibility: hidden;
+}
+.nav-menu.is-active {
+  transform: translateX(0);
+  visibility: visible;
+}
+.nav-menu ul {
+  list-style: none;
+  padding: 40px 0;
+  margin: 0;
+  text-align: center;
+}
+.nav-menu li {
+  margin-bottom: 20px;
+}
+.nav-menu a {
+  color: #d0d0d0;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+.nav-menu a:hover {
+  color: #fe015c;
+}
+@media (min-width: 768px) {
+  .nav-menu {
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+    transform: none;
+    visibility: visible;
+  }
+  .nav-menu ul {
+    display: flex;
+    padding: 0;
+  }
+  .nav-menu li {
+    margin: 0 0 0 30px;
+  }
+  .nav-menu a {
+    font-size: 16px;
+  }
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 110;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #d0d0d0;
+  border-radius: 3px;
+  transition: all 0.4s ease-in-out;
+}
+.hamburger.is-active span:nth-of-type(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+.hamburger.is-active span:nth-of-type(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-of-type(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+/* ===================================
+   フッター
+   =================================== */
+/* ===================================
+   フッター
+   =================================== */
+.footer {
+  background-color: black;
+  color: #d0d0d0;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 40px;
+  box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.1);
+  /* 通常のリストのリンク */
+  /* SNSアイコンのリスト */
+}
+@media (max-width: 767px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+.footer .f-nav-list h4 {
+  color: #fe015c;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #fe015c;
+  display: inline-block;
+}
+.footer .f-nav-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer .f-nav-list-main a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer .f-nav-list-main a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.footer .follow-me {
+  display: flex;
+  gap: 20px;
+}
+.footer .follow-me a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #f0f0f0;
+  border-radius: 50%;
+  color: #f0f0f0;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.footer .follow-me a:hover {
+  background-color: #fe015c;
+  border-color: #fe015c;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ===================================
+   index.html スタイル
+   =================================== */
+.index-view {
+  /* highlights img-list */
+}
+.index-view .keyvisual {
+  background-image: url("/assets/common/wallpaper.jpeg");
+  background-position: center;
+  text-align: center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  -o-background-size: cover;
+}
+.index-view .keyvisual h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 300;
+  color: #fff;
+  padding-top: calc(50vh - 100px);
+  padding-bottom: 60px;
+  font-family: "Dela Gothic One", cursive;
+  margin: 0;
+}
+.index-view .keyvisual a {
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+  border-radius: 3rem;
+  font-weight: 600;
+  color: #fff;
+}
+.index-view .keyvisual a:hover {
+  color: #fe015c;
+  border: 1px solid #fe015c;
+  transition-timing-function: ease-in;
+  transition-duration: 0.2s;
+  background-color: rgba(40, 40, 40, 0.8);
+}
+.index-view .description {
+  text-align: center;
+  font-size: 18px;
+  padding: 15px 0px;
+  color: rgb(177, 177, 177);
+}
+.index-view .img-list {
+  display: inline-block;
+  height: 320px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: scroll;
+  text-align: center;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE, Edge 対応 */
+  scrollbar-width: none;
+  /* Firefox 対応 */
+}
+.index-view .img-list::-webkit-scrollbar {
+  /* Chrome, Safari 対応 */
+  display: none;
+}
+.index-view .img-list::-webkit-scrollbar:hover {
+  /* Chrome, Safari 対応 */
+  display: auto;
+}
+.index-view .img-list:hover {
+  -ms-overflow-style: auto;
+  /* IE, Edge 対応 */
+  scrollbar-width: auto;
+  /* Firefox 対応 */
+}
+.index-view .img-list a {
+  display: inline-block;
+  height: 280px;
+  width: 160px;
+  text-align: center;
+  margin: 5px 5px;
+}
+.index-view .img-list p {
+  display: block;
+  height: 40px;
+  width: 150px;
+  padding: 0;
+  margin: 0 auto;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+.index-view .img-list img {
+  width: 150px;
+  height: 190px;
+  margin: 0 auto;
+}
+
+/* ===================================
+   works.html スタイル
+   =================================== */
+.works-view {
+  /* highlights img-list */
+  /* Mobile */
+  /* Desktop */
+}
+.works-view h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  padding: 15px 0px;
+  color: var(--h-nav-list-active);
+}
+.works-view .description {
+  text-align: center;
+  font-size: 18px;
+  padding: 15px 0px;
+  color: rgb(177, 177, 177);
+}
+.works-view .img-list {
+  display: inline-block;
+  height: 320px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: scroll;
+  text-align: center;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE, Edge 対応 */
+  scrollbar-width: none;
+  /* Firefox 対応 */
+}
+.works-view .img-list::-webkit-scrollbar {
+  /* Chrome, Safari 対応 */
+  display: none;
+}
+.works-view .img-list:hover {
+  -ms-overflow-style: auto;
+  /* IE, Edge 対応 */
+  scrollbar-width: auto;
+  /* Firefox 対応 */
+}
+.works-view .img-list::-webkit-scrollbar:hover {
+  /* Chrome, Safari 対応 */
+  display: auto;
+}
+.works-view .img-gallery {
+  padding-bottom: 16px;
+}
+@media (max-width: 768px) {
+  .works-view .img-gallery li {
+    border: 1px var(--h-nav-list-active) solid;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 5px;
+  }
+  .works-view .img-gallery img {
+    height: 100%;
+    width: auto !important;
+    max-width: calc(100vw - 40px);
+    max-height: 250px;
+  }
+  .works-view .img-gallery a {
+    display: block;
+    height: 260px;
+    text-align: center;
+    background-color: rgb(48, 48, 48);
+  }
+  .works-view .img-gallery p {
+    max-height: 250px;
+    max-width: 400px;
+    padding: 5px 25px;
+    color: var(--base-white);
+    font-size: 1.2em;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 80px;
+  }
+}
+@media (min-width: 769px) {
+  .works-view .img-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .works-view .img-gallery li {
+    display: flex;
+    width: 700px;
+    height: 300px;
+    border: 1px var(--h-nav-list-active) solid;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .works-view .img-gallery img {
+    height: 100% !important;
+    width: auto !important;
+    max-width: 350px !important;
+  }
+  .works-view .img-gallery a {
+    display: block;
+    height: 300px;
+    width: 500px;
+    text-align: center;
+    background-color: rgb(48, 48, 48);
+    border-radius: 5px;
+  }
+  .works-view .img-gallery p {
+    display: inline;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 200px;
+    color: var(--base-white);
+    padding-left: 10px;
+    float: left;
+  }
+}
+.works-view .more_btn {
+  width: 150px;
+  height: 30px;
+  font-size: 1em;
+  color: var(--base-white);
+  /* background-color: red; */
+  text-align: center;
+  margin-left: calc((100% - 150px) / 2);
+  border: 1px solid;
+}
+
+/* ===================================
+   contact.html スタイル
+   =================================== */
+.contact-view section {
+  text-align: center;
+  min-height: 80vh;
+}
+
+/* ===================================
+   paletopia.html スタイル
+   =================================== */
+.paletopia-view {
+  /* Keyvisual */
+  /* Video */
+  /* News */
+  /* Concept Arts */
+  /* Goods */
+  /* Members */
+  /* SNS follow icon */
+  /* Twitterマウスホバー時 */
+  /* Instagramマウスホバー時 */
+  /* Facebookマウスホバー時 */
+  /* Feedlyマウスホバー時 */
+  /* Pocketマウスホバー時 */
+  /* はてブマウスホバー時 */
+  /* YouTubeマウスホバー時 */
+  /* LINEマウスホバー時 */
+  /* お問い合わせマウスホバー時 */
+  /* プロフィールマウスホバー時 */
+  /* ulタグの内側余白を０にする */
+  /* アイコンボタンの位置調整 */
+  /* アイコンボタン同士の余白調整 */
+}
+.paletopia-view section {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.paletopia-view section:last-child {
+  margin-bottom: 80px;
+}
+.paletopia-view h2 {
+  text-align: left;
+  font-size: 1.3rem;
+  padding: 15px 0;
+}
+.paletopia-view hr {
+  width: 100% !important;
+  max-width: unset;
+}
+.paletopia-view section#keyvisual {
+  width: calc(100vw - (100vw - 100%));
+  text-align: center;
+  height: -moz-max-content;
+  height: max-content;
+}
+.paletopia-view section#keyvisual img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+}
+.paletopia-view section#keyvisual h2,
+.paletopia-view section#keyvisual hr {
+  width: 80% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.paletopia-view div.iframe-video {
+  aspect-ratio: 16/9;
+  text-align: center;
+}
+.paletopia-view div.iframe-video iframe {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.paletopia-view section#news ol li {
+  display: block;
+}
+.paletopia-view section#news span {
+  color: var(--white);
+  margin-left: 1rem;
+}
+.paletopia-view div.gallery {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  padding: 0 5px;
+  scrollbar-width: 5px;
+}
+.paletopia-view div.gallery img {
+  width: 30%;
+  min-width: 200px;
+  max-width: 500px;
+  margin: 0 15px 15px 15px;
+}
+.paletopia-view a.linkbox {
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  padding: 10px 15px;
+  display: block;
+  position: relative;
+  min-height: 80px;
+}
+.paletopia-view a.linkbox p:first-child {
+  margin-bottom: 0.6rem;
+  display: block;
+  width: calc(100% - 100px);
+}
+.paletopia-view a.linkbox p:nth-child(2) {
+  color: var(--lightgray);
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: block;
+  width: calc(100% - 100px);
+}
+.paletopia-view a.linkbox img {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  right: 0;
+  border-radius: 4px;
+}
+.paletopia-view a.linkbox:hover {
+  border: 1px solid var(--lightgray);
+  color: var(--lightgray);
+  transition: 0.3s;
+}
+.paletopia-view ul.windows {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.paletopia-view ul.windows li {
+  width: 130px;
+  text-align: center;
+  display: inline-block;
+}
+.paletopia-view ul.windows p:first-child {
+  display: block;
+  width: 100%;
+  font-size: 0.65rem;
+  word-break: keep-all;
+}
+.paletopia-view ul.windows p:nth-child(2) {
+  display: block;
+  width: 100%;
+  font-size: 0.9rem;
+}
+.paletopia-view ul.windows li img {
+  width: 100px;
+}
+.paletopia-view a.flowbtn18 {
+  display: inline-block;
+  width: 90%;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff !important;
+  position: relative;
+}
+.paletopia-view .flowbtn18 i {
+  font-size: 20px;
+  width: 100%;
+  height: 50%;
+}
+.paletopia-view .flowbtn18 i::before {
+  position: relative;
+  top: 4px;
+}
+.paletopia-view .flowbtn18 div {
+  font-size: 1.1rem;
+  display: inline-block;
+  position: relative;
+  top: 4px;
+}
+.paletopia-view .flowbtn18.fl_tw2:hover {
+  background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%);
+}
+.paletopia-view .flowbtn18.insta_btn2:hover {
+  background: linear-gradient(135deg, #427eff 0%, #f13f79 70%) no-repeat;
+}
+.paletopia-view .flowbtn18.fl_fb2:hover {
+  background: linear-gradient(to bottom, #5c80c6 0%, #34528c 74%);
+}
+.paletopia-view .flowbtn18.fl_fd2:hover {
+  background: linear-gradient(135deg, #b1ea4d 0%, #459522 100%);
+  font-size: 28px;
+}
+.paletopia-view .flowbtn18.fl_pk2:hover {
+  background: linear-gradient(135deg, #f36265 0%, #dd4f68 100%);
+}
+.paletopia-view .flowbtn18.fl_hb2 {
+  font-size: 25px;
+}
+.paletopia-view .flowbtn18.fl_hb2:hover {
+  background: linear-gradient(to bottom, #1fbccd 0%, #1c91d4 84%);
+}
+.paletopia-view .flowbtn18.fl_yu2:hover {
+  background: linear-gradient(135deg, #f5515f 0%, #c9293c 100%);
+}
+.paletopia-view .flowbtn18.fl_li2:hover {
+  background: linear-gradient(135deg, #3a9278 0%, #00c300 100%);
+}
+.paletopia-view .flowbtn18.fl_ma2:hover {
+  background: linear-gradient(135deg, #fad961 0%, #f76b1c 100%);
+}
+.paletopia-view .flowbtn18.fl_pf2:hover {
+  background: linear-gradient(135deg, #fad961 0%, #f8a33f 100%);
+}
+.paletopia-view ul.snsbtniti2 {
+  padding: 0 !important;
+}
+.paletopia-view .snsbtniti2 {
+  display: flex;
+  flex-flow: row wrap;
+}
+.paletopia-view .snsbtniti2 li {
+  justify-content: space-between;
+  width: 50%;
+  max-width: 200px;
+  text-align: center !important;
+}/*# sourceMappingURL=style.css.map */
