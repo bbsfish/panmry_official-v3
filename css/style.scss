@@ -446,146 +446,121 @@ hr {
    works.html スタイル
    =================================== */
 .works-view {
-	h1 {
-		width: 100%;
+	$gallery-gap: 1rem;
+	$item-bg-color: #fff;
+	$item-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	$item-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	$border-radius: 12px;
+	$text-color: #333;
+	$transition-speed: 0.3s;
+
+	#gallery {
+		// <ul>要素のデフォルトスタイルをリセット
+		list-style: none;
+		padding: 0;
+		margin: 1rem;
+
+		// レスポンシブ対応のグリッドレイアウト
+		display: grid;
+		// 画面幅に応じて列数を自動調整（各アイテムの最小幅は280px）
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: $gallery-gap;
+
+		li {
+			background-color: $item-bg-color;
+			border-radius: $border-radius;
+			box-shadow: $item-shadow;
+			overflow: hidden; // 画像の角を丸くするため
+			transition: transform $transition-speed ease, box-shadow $transition-speed ease;
+
+			// ホバー時に少し浮き上がるエフェクト ✨
+			&:hover {
+				transform: translateY(-5px);
+				box-shadow: $item-hover-shadow;
+
+				img {
+					transform: scale(1.05); // 画像を少しだけ拡大
+				}
+			}
+
+			a {
+				display: block; // エリア全体をクリック可能に
+				text-decoration: none;
+				color: inherit;
+			}
+
+			.img-container {
+				// 画像のコンテナ
+				overflow: hidden; // ホバー時の画像拡大がはみ出ないように
+			}
+
+			img {
+				display: block;
+				width: 100%;
+				// アスペクト比を固定して高さを揃える
+				aspect-ratio: 4 / 3;
+				object-fit: cover; // 比率が異なる画像も綺麗にトリミング
+				transition: transform $transition-speed ease;
+			}
+
+			p {
+				margin: 0;
+				padding: 16px 20px;
+				font-size: 0.9rem;
+				font-weight: 500;
+				color: $text-color;
+				// 見やすさのために文字間隔を少し空ける
+				letter-spacing: 0.05em;
+			}
+		}
+	}
+
+	$btn-bg: #0071e3;
+	$btn-text-color: #fff;
+	$btn-hover-bg: #0077ed;
+	$btn-active-bg: #0068ce;
+	$btn-font-size: 16px;
+	$btn-padding: 12px 28px;
+	$btn-radius: 50px;
+	$btn-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+	$btn-hover-shadow: 0 6px 16px rgba(0, 113, 227, 0.3);
+	$transition-speed: 0.25s;
+
+	.watchmore-wrap {
 		text-align: center;
-		font-size: 30px;
-		padding: 15px 0px;
-		color: var(--h-nav-list-active);
 	}
 
-	.description {
-		text-align: center;
-		font-size: 18px;
-		padding: 15px 0px;
-		color: rgb(177, 177, 177);
-	}
+	#watchmore {
+		// ブラウザのデフォルトスタイルを無効化
+		appearance: none;
+		border: none;
+		outline: none;
 
-	/* highlights img-list */
-	.img-list {
-		display: inline-block;
-		height: 320px;
-		width: 100%;
-		white-space: nowrap;
-		overflow: scroll;
-		text-align: center;
-		overflow-y: scroll;
-		-ms-overflow-style: none;
-		/* IE, Edge 対応 */
-		scrollbar-width: none;
-		/* Firefox 対応 */
-	}
+		// 基本デザイン
+		background-color: $btn-bg;
+		color: $btn-text-color;
+		padding: $btn-padding;
+		font-size: $btn-font-size;
+		font-weight: 600;
+		border-radius: $btn-radius;
+		box-shadow: $btn-shadow;
+		cursor: pointer;
 
-	.img-list::-webkit-scrollbar {
-		/* Chrome, Safari 対応 */
-		display: none;
-	}
+		// アニメーションを滑らかに
+		transition: all $transition-speed cubic-bezier(0.25, 0.8, 0.25, 1);
 
-	.img-list:hover {
-		-ms-overflow-style: auto;
-		/* IE, Edge 対応 */
-		scrollbar-width: auto;
-		/* Firefox 対応 */
-	}
-
-	.img-list::-webkit-scrollbar:hover {
-		/* Chrome, Safari 対応 */
-		display: auto;
-	}
-
-	.img-gallery {
-		padding-bottom: 16px;
-	}
-
-	/* Mobile */
-	@media(max-width: 768px) {
-		.img-gallery li {
-			border: 1px var(--h-nav-list-active) solid;
-			border-radius: 5px;
-			margin: 15px;
-			padding: 5px;
+		&:hover {
+			background-color: $btn-hover-bg;
+			box-shadow: $btn-hover-shadow;
+			// 少しだけ上に移動して浮いているように見せる
+			transform: translateY(-3px);
 		}
 
-		.img-gallery img {
-			height: 100%;
-			width: auto !important;
-			max-width: calc(100vw - 40px);
-			max-height: 250px;
+		&:active {
+			// 押された感覚を表現
+			transform: translateY(0);
+			box-shadow: $btn-shadow;
 		}
-
-		.img-gallery a {
-			display: block;
-			height: 260px;
-			text-align: center;
-			background-color: rgb(48, 48, 48);
-		}
-
-		.img-gallery p {
-			max-height: 250px;
-			max-width: 400px;
-			padding: 5px 25px;
-			color: var(--base-white);
-			font-size: 1.2em;
-			margin-left: auto;
-			margin-right: auto;
-			min-height: 80px;
-		}
-	}
-
-	/* Desktop */
-	@media(min-width: 769px) {
-		.img-gallery {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-		}
-
-		.img-gallery li {
-			display: flex;
-			width: 700px;
-			height: 300px;
-			border: 1px var(--h-nav-list-active) solid;
-			border-radius: 5px;
-			margin-bottom: 10px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-
-		.img-gallery img {
-			height: 100% !important;
-			width: auto !important;
-			max-width: 350px !important;
-		}
-
-		.img-gallery a {
-			display: block;
-			height: 300px;
-			width: 500px;
-			text-align: center;
-			background-color: rgb(48, 48, 48);
-			border-radius: 5px;
-		}
-
-		.img-gallery p {
-			display: inline;
-			margin-top: auto;
-			margin-bottom: auto;
-			width: 200px;
-			color: var(--base-white);
-			padding-left: 10px;
-			float: left;
-		}
-	}
-
-	.more_btn {
-		width: 150px;
-		height: 30px;
-		font-size: 1.0em;
-		color: var(--base-white);
-		/* background-color: red; */
-		text-align: center;
-		margin-left: calc((100% - 150px) / 2);
-		border: 1px solid;
 	}
 }
 
